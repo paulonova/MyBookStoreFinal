@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="4dp"
+    android:background="#e4c6ab"
+    android:paddingBottom="10dp">
+
+    <ImageView
+        android:id="@+id/cartImageView"
+        android:contentDescription="@string/app_name"
+        android:layout_width="50dp"
+        android:layout_height="70dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/android_logo"
+        android:layout_margin="5dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/cartImageView"
+        android:layout_toRightOf="@id/cartImageView"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp">
+
+        <TextView
+            android:id="@+id/cartBookName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/bookName"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:textColor="@color/colorTitle"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/cartBookPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/price"
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
+            android:textColor="@color/colorAccent"
+            android:textStyle="italic"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</RelativeLayout>
