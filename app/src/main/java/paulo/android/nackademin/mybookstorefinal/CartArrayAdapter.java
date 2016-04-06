@@ -16,6 +16,7 @@ import java.util.List;
 
 public class CartArrayAdapter extends ArrayAdapter<Book> {
 
+
     Context context;
     List<Book> bookToCart;
 
@@ -86,4 +87,6 @@ public class CartArrayAdapter extends ArrayAdapter<Book> {
 
         return itemView;
     }
+
+
 }

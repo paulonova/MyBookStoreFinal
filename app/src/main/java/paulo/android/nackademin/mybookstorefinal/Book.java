@@ -42,7 +42,21 @@ public class Book {
         return price;
     }
 
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
+    }
 
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
     @Override
     public String toString() {

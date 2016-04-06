@@ -3,6 +3,7 @@ package paulo.android.nackademin.mybookstorefinal;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -23,6 +24,8 @@ public class DetailActivity extends AppCompatActivity {
     TextView detailDescription;
     TextView detailBookPrice;
     public static final String BOOK_NAME = "book name";
+    SharedPreferences sharedpreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +54,8 @@ public class DetailActivity extends AppCompatActivity {
         detailBookImage = (ImageView)findViewById(R.id.imvDetailImage);
         detailBookImage.setImageResource(book.getImageId());
 
-
+        //SharedPreferences to store the book name and use it in CartListActivity
+        sharedpreferences = getSharedPreferences(BOOK_NAME, Context.MODE_PRIVATE);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -65,8 +69,10 @@ public class DetailActivity extends AppCompatActivity {
                 Toast.makeText(DetailActivity.this, "BOOK: " + book.getImageId() + " : " + book.getBookName()  + " : " + book.getPrice(), Toast.LENGTH_LONG).show();
                 Log.d("BOOK: ", book.getImageId() + " : " + book.getBookName() + " : " + book.getPrice());
 
-                // I chaged Book to Bookstore!!! Non´t know if it works!!!!
-                //CartListActivity.booksToCart.add(new Book(book.getImageId(), book.getBookName(), book.getPrice()));
+                //Storing the bookName in sharedPreferences...
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString(BOOK_NAME, book.getBookName());
+                editor.commit();
 
                 //Notifications..
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(DetailActivity.this);
