@@ -68,6 +68,9 @@ public class DetailActivity extends AppCompatActivity {
                 //Sending a book object to List in CartListActivity..
                 Log.d("BOOK: ", book.getImageId() + " : " + book.getBookName() + " : " + book.getPrice());
 
+                //Storing information to show in CartListActivity
+                Bookstore.bookToCart.add(new Book(book.getImageId(), book.getBookName(), book.getDescription(), book.getPrice()));
+
                 //Storing the bookName in sharedPreferences...
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putString(BOOK_NAME, book.getBookName());

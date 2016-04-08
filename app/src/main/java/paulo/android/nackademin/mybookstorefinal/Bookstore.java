@@ -135,11 +135,6 @@ public class Bookstore {
 
 
     //Methods to CartListActivity
-
-    public List<Book> getCartBooks() {
-        return bookToCart;
-    }
-
     public static Book getBookToCart(String bookName) {
         for (Book book : bookToCart) {
             if (book.getBookName().equals(bookName)) {

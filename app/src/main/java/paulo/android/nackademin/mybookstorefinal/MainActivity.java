@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements CustomDialogFragment.CustomDialogClickListener {
+public class MainActivity extends AppCompatActivity  {
 
     BookArrayAdapter bookAdapter;
     private int lastClickedPosition;
@@ -59,22 +59,6 @@ public class MainActivity extends AppCompatActivity implements CustomDialogFragm
             }
         });
 
-        myBookList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-
-                lastClickedPosition = position;
-                Book bookToRemove = bookAdapter.getItem(lastClickedPosition);
-
-                // Skapa en ny instans av vår egen klass CustomDialogFragment
-                CustomDialogFragment dialog = new CustomDialogFragment();
-                dialog.setBook(bookToRemove);
-                dialog.show(getSupportFragmentManager(), "CustomDialogFragment");
-
-                return true;
-            }
-        });
-
     }
 
 
@@ -87,11 +71,8 @@ public class MainActivity extends AppCompatActivity implements CustomDialogFragm
                 Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG).setAction("Go to cart", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        book = bookFromBookstore.get(positionSelected);
                         Intent intent = new Intent(MainActivity.this, CartListActivity.class);
-                        intent.putExtra(SENDING_BOOK_NAME, book.getBookName());
                         startActivity(intent);
-                        Toast.makeText(MainActivity.this, "Going to cart", Toast.LENGTH_SHORT).show();
                     }
                 }).show();
             }
@@ -108,9 +89,8 @@ public class MainActivity extends AppCompatActivity implements CustomDialogFragm
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
+        // Handle action bar item clicks here.
         int id = item.getItemId();
 
         switch (id){
@@ -126,17 +106,6 @@ public class MainActivity extends AppCompatActivity implements CustomDialogFragm
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onCancelClick(DialogFragment dialog) {
-        Toast.makeText(this, "No book deleted!", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onDeleteClick(DialogFragment dialog) {
-        Book bookToRemove = bookAdapter.getItem(lastClickedPosition);
-        bookAdapter.remove(bookToRemove);
     }
 
 
