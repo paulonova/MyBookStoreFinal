@@ -66,7 +66,6 @@ public class DetailActivity extends AppCompatActivity {
                 setResult(RESULT_OK, data);
 
                 //Sending a book object to List in CartListActivity..
-                Toast.makeText(DetailActivity.this, "BOOK: " + book.getImageId() + " : " + book.getBookName()  + " : " + book.getPrice(), Toast.LENGTH_LONG).show();
                 Log.d("BOOK: ", book.getImageId() + " : " + book.getBookName() + " : " + book.getPrice());
 
                 //Storing the bookName in sharedPreferences...

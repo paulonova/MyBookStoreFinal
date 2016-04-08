@@ -24,13 +24,14 @@ public class CartListActivity extends AppCompatActivity {
 
     ArrayAdapter cartAdapter;
     private CoordinatorLayout coordinatorLayout;
+    ArrayAdapter<String> stringAdapter;
 
-    List<Book> bookListToCart;
+    //List<Book> bookListToCart;
     Book storedBook;
+    ListView cartListView;
+    List<String> messageArray = new ArrayList<>();
+    //String[] messageArray = {"There is no Book in your cart!"};
 
-    ImageView bookImageId;
-    TextView bookName;
-    TextView bookPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,37 +40,42 @@ public class CartListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Get the extra sends from Intent
         Intent intent = getIntent();
         String bookNameRequest = intent.getStringExtra(MainActivity.SENDING_BOOK_NAME);
-        Toast.makeText(this,"SENDING_BOOK_NAME: " + bookNameRequest, Toast.LENGTH_LONG).show();
 
+        // Getting the bookName stored by DetailActivity
         SharedPreferences preferences = getSharedPreferences(DetailActivity.BOOK_NAME, Context.MODE_PRIVATE);
         String sharedText = preferences.getString(DetailActivity.BOOK_NAME, null);
         Log.d("SHARED_PREFERENCES TEXT:", sharedText);
 
 
         storedBook = Bookstore.getBookContent(bookNameRequest);
-        bookListToCart = new ArrayList<>();
-        bookListToCart.add(new Book(storedBook.getImageId(), storedBook.getBookName(), storedBook.getDescription(), storedBook.getPrice()));
-
-
-        Log.d("RECIEVING A BOOK", "" + storedBook.getBookName() + " : " + storedBook.getPrice() + " : " + storedBook.getImageId());
-
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.cartCoordenator);
-        final ListView cartListView = (ListView)findViewById(R.id.cartListView);
+        cartListView = (ListView)findViewById(R.id.cartListView);
 
+        cartAdapter = new CartArrayAdapter(CartListActivity.this, R.layout.book_cart_list_item, Bookstore.bookToCart);
 
-        Log.d("Book to Cart", "" + bookListToCart.size());
-        cartAdapter = new CartArrayAdapter(CartListActivity.this, R.layout.book_cart_list_item, bookListToCart);
-        cartListView.setAdapter(cartAdapter);
+        if(storedBook == null ){
+            if(Bookstore.bookToCart.size() == 0){
+                messageArray.add("There is no Book in your cart!");
+                stringAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, messageArray);
+                cartListView.setAdapter(stringAdapter);
+            }else{
+                cartListView.setAdapter(cartAdapter);
+            }
+
+        }else{
+            Bookstore.bookToCart.add(new Book(storedBook.getImageId(), storedBook.getBookName(), storedBook.getDescription(), storedBook.getPrice()));
+            cartListView.setAdapter(cartAdapter);
+
+        }
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
                 finish();
             }
         });

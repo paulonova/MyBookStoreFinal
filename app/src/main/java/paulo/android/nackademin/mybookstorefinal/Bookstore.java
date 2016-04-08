@@ -8,6 +8,7 @@ public class Bookstore {
 
 
     public static List<Book> myBookstore;
+    public static List<Book> bookToCart = new ArrayList<>();
 
 
     public Bookstore() {
@@ -18,7 +19,7 @@ public class Bookstore {
 
     //public Book(int productId, String prodName, String description, double price)
 
-    public void addBooks(){
+    public void addBooks() {
 
         myBookstore.add(new Book(R.drawable.bootstrap_3, "Bootstrap 3.3", "Discover how easy it is to design killer interfaces and responsive websites with the Bootstrap framework. " +
                 "This practical book gets you started building pages with Bootstraps HTML/CSS-based tools and design templates right away. " +
@@ -118,19 +119,34 @@ public class Bookstore {
 
     }
 
-    public List<Book> getBooks(){
+    public List<Book> getBooks() {
         return myBookstore;
     }
 
-    public static Book getBookContent (String bookName){
+    public static Book getBookContent(String bookName) {
 
-        for ( Book book : myBookstore ) {
-            if(book.getBookName().equals(bookName)){
+        for (Book book : myBookstore) {
+            if (book.getBookName().equals(bookName)) {
                 return book;
             }
         }
         return null;
     }
 
+
+    //Methods to CartListActivity
+
+    public List<Book> getCartBooks() {
+        return bookToCart;
+    }
+
+    public static Book getBookToCart(String bookName) {
+        for (Book book : bookToCart) {
+            if (book.getBookName().equals(bookName)) {
+                return book;
+            }
+        }
+        return null;
+    }
 
 }
